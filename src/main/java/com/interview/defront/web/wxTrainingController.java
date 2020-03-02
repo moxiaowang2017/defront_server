@@ -73,6 +73,23 @@ public class wxTrainingController {
         return ResponseUtil.ok(iPage);
     }
 
+    /**
+     * 根据问题分类获取练习题
+     *
+     * @param id 问题ID，
+     */
+    @GetMapping("searchById/{id}")
+    public Object searchById(@PathVariable("id") String id) {
+        try {
+            DefrontTrainingQuestion trainingQuestion = trainingQuestionService.getById(id);
+            return ResponseUtil.ok(trainingQuestion);
+        }catch (Exception e){
+            System.out.println("searchById:" + e);
+            return ResponseUtil.serious();
+        }
+
+    }
+
 
     /**
      * 根据问题Id获取选项
@@ -117,4 +134,6 @@ public class wxTrainingController {
         IPage<DefrontDoQuestion> questionIPage = questionDoService.queryDoQuestion(userId, type, pageNo, pageSize);
         return ResponseUtil.ok(questionIPage);
     }
+
+
 }
